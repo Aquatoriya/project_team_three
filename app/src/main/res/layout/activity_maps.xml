@@ -24,16 +24,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="61dp"
                 android:id="@+id/button1"
-                android:text="@string/button2"
-                android:elevation="50dp"
-                android:onClick="Hey"/>
+                android:text="button2"
+                android:elevation="50dp"/>
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/button2"
-                android:text="@string/button1"
-                android:elevation="50dp"
-                android:onClick="Hey"/>
+                android:text="button1"
+                android:elevation="50dp"/>
 
     </LinearLayout>
 

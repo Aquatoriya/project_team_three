@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 
 
@@ -39,6 +40,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         if (computerClubs.size != 24) {
             localDB.addAllComputerClubs()
             computerClubs = localDB.listComputerClubs("%")
+            Log.d("111111", "In if")
         }
 
         button1.setOnClickListener{
@@ -47,6 +49,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 mMap.addMarker(MarkerOptions().position(club).title(computerClubs[i].name))
             }
         }
+        mMap.setOnMarkerClickListener {
+
+            return@setOnMarkerClickListener true
+        }
+
     }
 
     /**
@@ -67,7 +74,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val stPetersburg = LatLng(59.93863, 30.31413)
         mMap.addMarker(MarkerOptions().position(stPetersburg).title("Saint Petersburg"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(stPetersburg))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stPetersburg, 12.0f))
 
         //val gamer = LatLng(60.04015, 30.334697)
         //mMap.addMarker(MarkerOptions().position(gamer).title("Computer club 'Gamer' "))

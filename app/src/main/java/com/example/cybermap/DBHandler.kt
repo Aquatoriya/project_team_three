@@ -73,6 +73,8 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         return arraylist
     }
 
+    fun addComputerClub(){}
+
     fun addAllComputerClubs() {
         var tempId = 0
         var tempName = "Gamer"
@@ -83,16 +85,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         var tempIsAvailable = 0
         var tempCoordinates = "60.040150, 30.334697"
 
-        var values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        var values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 1
         tempName = "CTRL PLAY"
@@ -103,16 +105,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "60.007866, 30.327241"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 2
         tempName = "CTRL PLAY"
@@ -123,16 +125,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.984548, 30.237849"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 3
         tempName = "Portal"
@@ -143,16 +145,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.940019, 30.265670"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 4
         tempName = "Стелс"
@@ -163,16 +165,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.917966, 30.470055"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 5
         tempName = "Фобос"
@@ -183,16 +185,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.864250, 30.372669"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 6
         tempName = "Cyberside"
@@ -203,16 +205,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.862614, 30.311709"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 7
         tempName = "Пять и Три"
@@ -223,16 +225,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.959287, 30.301971"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 8
         tempName = "ЦЕНТР КИБЕРСПОРТА"
@@ -243,16 +245,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.922878, 30.371222"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 9
         tempName = "Restart"
@@ -263,16 +265,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.959588, 30.295863"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 10
         tempName = "Вега"
@@ -283,16 +285,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.898774, 30.272929"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 11
         tempName = "Ladoga"
@@ -303,16 +305,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.915183, 30.317431"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 12
         tempName = "Pandagreen"
@@ -323,16 +325,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "60.012543, 30.387635"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 13
         tempName = "Baza"
@@ -343,16 +345,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.989360, 30.257774"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 14
         tempName = "Colizeum Komenda"
@@ -363,16 +365,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "60.007920, 30.264269"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 15
         tempName = "Colizeum Industrial"
@@ -383,16 +385,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.946202, 30.474448"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 16
         tempName = "WINSTRIKE Corner"
@@ -403,16 +405,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.893716, 30.515164"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 17
         tempName = "Киберспортивный центр"
@@ -423,16 +425,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.935561, 30.273405"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 18
         tempName = "PandaBanda"
@@ -443,19 +445,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.943395, 30.216029"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
-
-        tempId = 19
-        tempName = "PandaBanda"
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
         tempAddress = "Гжатская, 22 к3 МО №19 \"Академическое\", Калининский район, Санкт-Петербург"
         tempPhone = "8 (800) 302-56-66"
         tempSite = "http://pandabanda.club/"
@@ -463,16 +462,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "60.004870, 30.385685"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            19,
+            "PandaBanda",
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 20
         tempName = "Кибер World"
@@ -483,16 +482,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "60.002169, 30.272800"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 21
         tempName = "Headshot"
@@ -503,16 +502,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 0
         tempCoordinates = "59.940114, 30.365653"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 22
         tempName = "Теккен Арена"
@@ -523,16 +522,16 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 1
         tempCoordinates = "59.853077, 30.340575"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        values = addComputerCLub(
+            tempId,
+            tempName,
+            tempAddress,
+            tempPhone,
+            tempSite,
+            tempHours,
+            tempIsAvailable,
+            tempCoordinates
+        )
 
         tempId = 23
         tempName = "CyberPoint"
@@ -543,17 +542,31 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         tempIsAvailable = 1
         tempCoordinates = "59.868478, 30.317395"
 
-        values = ContentValues()
-        values.put(DBHandler._id, tempId)
-        values.put(DBHandler.name, tempName)
-        values.put(DBHandler.address, tempAddress)
-        values.put(DBHandler.phone, tempPhone)
-        values.put(DBHandler.site, tempSite)
-        values.put(DBHandler.hours, tempHours)
-        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(DBHandler.coordinates, tempCoordinates)
-        this.addComputerClub(values)
+        addComputerCLub(tempId, tempName, tempAddress, tempPhone, tempSite, tempHours, tempIsAvailable, tempCoordinates)
 
+    }
+
+    private fun addComputerCLub(
+        tempId: Int,
+        tempName: String,
+        tempAddress: String,
+        tempPhone: String,
+        tempSite: String,
+        tempHours: String,
+        tempIsAvailable: Int,
+        tempCoordinates: String
+    ): ContentValues {
+        var values = ContentValues()
+        values.put(_id, tempId)
+        values.put(name, tempName)
+        values.put(address, tempAddress)
+        values.put(phone, tempPhone)
+        values.put(site, tempSite)
+        values.put(hours, tempHours)
+        values.put(isAvailableOnlineBooking, tempIsAvailable)
+        values.put(coordinates, tempCoordinates)
+        this.addComputerClub(values)
+        return values
     }
 
 }

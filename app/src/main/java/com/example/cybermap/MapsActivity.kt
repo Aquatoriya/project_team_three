@@ -49,10 +49,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 mMap.addMarker(MarkerOptions().position(club).title(computerClubs[i].name))
             }
         }
-        mMap.setOnMarkerClickListener {
-
-            return@setOnMarkerClickListener true
-        }
 
     }
 
@@ -69,8 +65,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        mMap.setOnMarkerClickListener {
 
-
+            return@setOnMarkerClickListener true
+        }
 
         val stPetersburg = LatLng(59.93863, 30.31413)
         mMap.addMarker(MarkerOptions().position(stPetersburg).title("Saint Petersburg"))

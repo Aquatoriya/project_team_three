@@ -1,6 +1,7 @@
 package com.example.cybermap
 
 
+import android.content.ContentValues
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
 
+    private lateinit var localDB : DBHandler
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
@@ -25,6 +28,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        localDB = DBHandler(this)
+
+        var tempId = 0
+        var tempName = "Gamer"
+        var tempAddress = "ул. Есенина, 9к2, Санкт-Петербург, 194354"
+        var tempPhone = "8 (812) 599-39-53"
+        var tempSite = ""
+        var tempHours = "круглосуточно"
+        var tempIsAvailable = 0
+        var tempCoordinates = "60.040150, 30.334697"
+
+        var values = ContentValues()
+        values.put(DBHandler._id, tempId)
+        values.put(DBHandler.name, tempName)
+        values.put(DBHandler.address, tempAddress)
+        values.put(DBHandler.phone, tempPhone)
+        values.put(DBHandler.site, tempSite)
+        values.put(DBHandler.hours, tempHours)
+        values.put(DBHandler.isAvailableOnlineBooking, tempIsAvailable)
+        values.put(DBHandler.coordinates, tempCoordinates)
+        localDB.addComputerClub(values)
     }
 
     /**
@@ -40,14 +65,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        var computerClubs = localDB.listComputerClubs("%")
+
         // Add a marker in Sydney and move the camera
         val stPetersburg = LatLng(59.93863, 30.31413)
         mMap.addMarker(MarkerOptions().position(stPetersburg).title("Saint Petersburg"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(stPetersburg))
 
-        val gamer = LatLng(60.04015, 30.334697)
-        mMap.addMarker(MarkerOptions().position(gamer).title("Computer club 'Gamer' "))
+        //val gamer = LatLng(60.04015, 30.334697)
+        //mMap.addMarker(MarkerOptions().position(gamer).title("Computer club 'Gamer' "))
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(club))
+
+        val gamer = LatLng(computerClubs[0].coordinates[0], computerClubs[0].coordinates[1])
+        mMap.addMarker(MarkerOptions().position(gamer).title(computerClubs[0].name))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(gamer))
     }
 
 }

@@ -1,0 +1,4 @@
+package com.example.cybermap
+
+class ComputerClubData (var _id: Int, var name: String, var address: String, var phone: String, var site: String,
+                        var hours:String, var isAvailableOnlineBooking: Short, var coordinates: ArrayList<Double>)

@@ -3,7 +3,6 @@ package com.example.cybermap
 
 
 
-import android.content.Context
 import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -48,17 +47,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             setNeutralButton("Maybe", neutralMarkerClickListener)
             show()
         }
-
-
     }
 
-    fun withItems(view: View) {
-
+    private fun showDialog() {
         val builder = AlertDialog.Builder(this)
-        with(builder)
-        {
-            val title = setTitle("List of Clubs")
-            setIte ms(computerClubs) {dialog: DialogInterface, which:Int ->
+        with(builder) {
+            setTitle("List of Clubs")
+            setItems(computerClubs.coolToArray()) { dialog: DialogInterface, which:Int ->
+
+                //
                 Toast.makeText(applicationContext, "${computerClubs[which]}", Toast.LENGTH_SHORT).show()
             }
 
@@ -69,7 +66,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
 
-    private lateinit var localDB: Data
+    private lateinit var localDB: DBHandler
 
     private var countOfClubs = 24
 
@@ -83,7 +80,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        localDB = Data(this)
+        localDB = DBHandler(this)
         computerClubs = localDB.listComputerClubs("%")
         if (computerClubs.size != 24) {
             localDB.addAllComputerClubs()
@@ -114,7 +111,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         mMap.setOnMarkerClickListener {
-
+            showDialog()
             return@setOnMarkerClickListener true
         }
             val stPetersburg = LatLng(59.93863, 30.31413)
@@ -129,3 +126,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     }
+
+fun ArrayList<ComputerClubData>.coolToArray() : Array<String> = Array<String>(this.size){x -> this[x].toString()}

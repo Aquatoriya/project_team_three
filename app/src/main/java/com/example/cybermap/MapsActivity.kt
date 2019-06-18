@@ -5,7 +5,6 @@ import android.content.ContentValues
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 
 
@@ -21,11 +20,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
 
-    private lateinit var localDB : DBHandler
+    private lateinit var localDB : Data
 
-    private var countOfClubs = 24
-
-    private lateinit var computerClubs : ArrayList<ComputerClubData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,21 +31,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        localDB = DBHandler(this)
-        computerClubs = localDB.listComputerClubs("%")
-        if (computerClubs.size != 24) {
-            localDB.addAllComputerClubs()
-            computerClubs = localDB.listComputerClubs("%")
-            Log.d("111111", "In if")
-        }
+        localDB = Data(this)
 
+        var tempId = 0
+        var tempName = "Gamer"
+        var tempAddress = "ул. Есенина, 9к2, Санкт-Петербург, 194354"
+        var tempPhone = "8 (812) 599-39-53"
+        var tempSite = ""
+        var tempHours = "круглосуточно"
+        var tempIsAvailable = 0
+        var tempCoordinates = "60.040150, 30.334697"
+
+        var values = ContentValues()
+        values.put(Data._id, tempId)
+        values.put(Data.name, tempName)
+        values.put(Data.address, tempAddress)
+        values.put(Data.phone, tempPhone)
+        values.put(Data.site, tempSite)
+        values.put(Data.hours, tempHours)
+        values.put(Data.isAvailableOnlineBooking, tempIsAvailable)
+        values.put(Data.coordinates, tempCoordinates)
+        localDB.addComputerClub(values)
+
+
+        var computerClubs = localDB.listComputerClubs("%")
         button1.setOnClickListener{
             for (i in computerClubs.indices){
                 val club = LatLng(computerClubs[i].coordinates[0], computerClubs[i].coordinates[1])
                 mMap.addMarker(MarkerOptions().position(club).title(computerClubs[i].name))
             }
         }
-
     }
 
     /**
@@ -65,19 +76,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        mMap.setOnMarkerClickListener {
 
-            return@setOnMarkerClickListener true
-        }
+
 
         val stPetersburg = LatLng(59.93863, 30.31413)
         mMap.addMarker(MarkerOptions().position(stPetersburg).title("Saint Petersburg"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stPetersburg, 12.0f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(stPetersburg))
 
         //val gamer = LatLng(60.04015, 30.334697)
         //mMap.addMarker(MarkerOptions().position(gamer).title("Computer club 'Gamer' "))
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(club))
-
     }
 
 

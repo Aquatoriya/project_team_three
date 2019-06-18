@@ -1,12 +1,10 @@
 package com.example.cybermap
 
 
-import android.content.ContentValues
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -14,8 +12,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.activity_maps.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -25,29 +23,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var countOfClubs = 24
 
+    private var arrayOfMarkers = arrayListOf<Marker>()
+
     private lateinit var computerClubs : ArrayList<ComputerClubData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+
+        supportActionBar!!.hide()
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         localDB = DBHandler(this)
+        localDB.sqlObj.delete("computerClubsTable", null, null)
         localDB.addAllComputerClubs()
         computerClubs = localDB.listComputerClubs("%")
-        Log.d("IMAGES ID REAL", R.drawable.ctrlplay0_0.toString())
-        Log.d("IMAGES ID FAKE", computerClubs[1].images[0].toString())
+        computerClubs.sortBy { it._id }
 
-        button1.setOnClickListener{
-            for (i in computerClubs.indices){
-                val club = LatLng(computerClubs[i].coordinates[0], computerClubs[i].coordinates[1])
-                mMap.addMarker(MarkerOptions().position(club).title(computerClubs[i].name))
-            }
-        }
-        imageView.setImageResource(computerClubs[1].images[0])
     }
 
     /**
@@ -60,15 +55,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
 
+
     override fun onMapReady(googleMap: GoogleMap) {
+
         mMap = googleMap
 
-        Log.d("IMAGES ID REAL", R.drawable.ctrlplay0_0.toString())
-
-        mMap.setOnMarkerClickListener {
-
-            return@setOnMarkerClickListener true
+        for (i in computerClubs.indices){
+            val club = LatLng(computerClubs[i].coordinates[0], computerClubs[i].coordinates[1])
+            arrayOfMarkers.add(mMap.addMarker(MarkerOptions().position(club).title(computerClubs[i].name)))
         }
+
+        mMap.setOnMarkerClickListener {it ->
+            val intent = Intent(this, InfoActivity::class.java)
+            val ind = arrayOfMarkers.indexOf(it)
+
+            intent.putExtra("name", computerClubs[ind].name)
+            intent.putExtra("address", computerClubs[ind].address)
+            intent.putExtra("phone", computerClubs[ind].phone)
+            intent.putExtra("site", computerClubs[ind].site)
+            intent.putExtra("hours", computerClubs[ind].hours)
+            intent.putExtra("isAvailableOnlineBooking", computerClubs[ind].isAvailableOnlineBooking)
+            //intent.putExtra("coordinates", computerClubs[ind].coordinates)
+            intent.putExtra("images", computerClubs[ind].images.toIntArray())
+
+            startActivity(intent)
+            return@setOnMarkerClickListener true
+
+        }
+
+
+
 
         val stPetersburg = LatLng(59.93863, 30.31413)
         mMap.addMarker(MarkerOptions().position(stPetersburg).title("Saint Petersburg"))

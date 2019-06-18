@@ -60,14 +60,14 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
                 val Phone = cursor.getString(cursor.getColumnIndex(phone))
                 val Site = cursor.getString(cursor.getColumnIndex(site))
                 val Hours = cursor.getString(cursor.getColumnIndex(hours))
-                val IsAvailableOnlineBooking = cursor.getShort(cursor.getColumnIndex(isAvailableOnlineBooking))
+                val IsAvailableOnlineBooking = cursor.getInt(cursor.getColumnIndex(isAvailableOnlineBooking))
 
                 val tempCoordinates = cursor.getString(cursor.getColumnIndex(coordinates)).split(", ")
                 val Coordinates = arrayListOf<Double>(tempCoordinates[0].toDouble(), tempCoordinates[1].toDouble())
 
                 val tempImages = cursor.getString(cursor.getColumnIndex(images))
                 var ImagesList = emptyList<Int>()
-                if (tempImages.isNotEmpty()) {
+                if (tempImages != "") {
                     ImagesList = tempImages.subSequence(1, tempImages.length-1).split(", ").map {it.toInt()}
                 }
                 arraylist.add(ComputerClubData(id, Name, Address, Phone, Site, Hours, IsAvailableOnlineBooking, Coordinates, ImagesList))
@@ -77,176 +77,174 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         return arraylist
     }
 
-    fun addComputerClub(){}
-
     fun addAllComputerClubs() {
-        var values = addComputerCLub(
+        addComputerCLub(
             0, "Gamer", "ул. Есенина, 9к2, Санкт-Петербург, 194354",
             "8 (812) 599-39-53", "",
-            "круглосуточно", 0, "60.040150, 30.334697", listOf(R.drawable.no_photo, R.drawable.ctrlplay0_1).toString()
+            "круглосуточно", 0, "60.040150, 30.334697", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+        addComputerCLub(
             1, "CTRL PLAY", "пр. Энгельса, 27д, Санкт-Петербург, 194292, Burger King, 1й этаж ",
             "8 (812) 426-34-78", "https://vk.com/ctrlplayru_spb",
-            "круглосуточно", 0, "60.007866, 30.327241", listOf(R.drawable.ctrlplay0_0, R.drawable.ctrlplay0_1).toString()
+            "круглосуточно", 0, "60.007866, 30.327241", listOf(R.drawable.img_1_0, R.drawable.img_1_1).toString()
         )
 
-        values = addComputerCLub(
+        addComputerCLub(
             2, "CTRL PLAY", "Приморский просп., 97, Санкт-Петербург, 197374, Burger King, 2й этаж",
             "8 (812) 389-34-78", "https://vk.com/ctrlplayru_spb",
-            "круглосуточно", 0, "59.984548, 30.237849", ""
+            "круглосуточно", 0, "59.984548, 30.237849", listOf(R.drawable.img_2_0, R.drawable.img_2_1).toString()
         )
 
 
-        values = addComputerCLub(
+        addComputerCLub(
             3, "Portal", "16-я линия В.О., дом 43, Санкт-Петербург, 199178",
             "8 (812) 900-95-97", "https://portalclubspb.ru/",
-            "09:00-08:00", 0, "59.940019, 30.265670", ""
+            "09:00-08:00", 0, "59.940019, 30.265670", listOf(R.drawable.img_3_0, R.drawable.img_3_1, R.drawable.img_3_2).toString()
         )
 
 
-        values = addComputerCLub(
+        addComputerCLub(
             4, "Стелс", "пр. Большевиков, 3, корп. 1, литера \"Д\", Санкт-Петербург, 193231",
             "8 (812) 588-40-61", "http://stels-klub.ru/",
-            "круглосуточно", 0, "59.917966, 30.470055", ""
+            "круглосуточно", 0, "59.917966, 30.470055", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+        addComputerCLub(
             5, "Фобос", "Будапештская ул., 19/1, Санкт-Петербург, 192212",
             "8 (812) 774-31-47", "http://fobos.pro/",
-            "10:00-08:00", 0, "59.864250, 30.372669", ""
+            "10:00-08:00", 0, "59.864250, 30.372669", listOf(R.drawable.img_5_0, R.drawable.img_5_1, R.drawable.img_5_2, R.drawable.img_5_3).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             6, "Cyberside", "Варшавская ул., 29, к.3, Санкт-Петербург, 196191",
             "8 (812) 921-13-66", "http://cyberside.pro/",
-            "09:00-08:00", 0, "59.862614, 30.311709", ""
+            "09:00-08:00", 0, "59.862614, 30.311709", listOf(R.drawable.img_6_0, R.drawable.img_6_1).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             7, "Пять и Три", "Большой проспект ПС, 35, Санкт-Петербург, 197198",
-            "8 (812) 670-04-53", "hhttps://www.fiveandthree.ru/",
-            "Пн-Сб 09:30-23:00", 0, "59.959287, 30.301971", ""
+            "8 (812) 670-04-53", "https://www.fiveandthree.ru/",
+            "Пн-Сб 09:30-23:00", 0, "59.959287, 30.301971", listOf(R.drawable.img_7_0, R.drawable.img_7_1).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             8, "ЦЕНТР КИБЕРСПОРТА", "Г. САНКТ-ПЕТЕРБУРГ, КРЕМЕНЧУГСКАЯ УЛ. Д. 11К1",
             "8 (929) 101-59-86", "http://cybcentr.ru/sankt-peterburg",
-            "круглосуточно", 0, "59.922878, 30.371222", ""
+            "круглосуточно", 0, "59.922878, 30.371222", listOf(R.drawable.img_8_0, R.drawable.img_8_1).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             9, "Restart", "Большая Зеленина ул., 1, Санкт-Петербург, 197110",
             "8 (812) 235-17-79", "https://vk.com/ccrestart",
-            "круглосуточно", 0, "59.959588, 30.295863", ""
+            "круглосуточно", 0, "59.959588, 30.295863", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             10, "Вега", "Промышленная ул., 6, Санкт-Петербург, 198095",
             "8 (921) 941-34-18", "https://vega98.ru/",
-            "круглосуточно", 0, "59.898774, 30.272929", ""
+            "круглосуточно", 0, "59.898774, 30.272929", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             11, "Ladoga", "2-я Красноармейская ул., 2, Санкт-Петербург, 190005",
             "8 (812) 316-37-50", "https://vk.com/ladogaclubspb",
-            "круглосуточно", 0, "59.915183, 30.317431", ""
+            "круглосуточно", 0, "59.915183, 30.317431", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             12, "Pandagreen", "Гжатская ул., 22 корпус 3, Санкт-Петербург, 195220",
             "8 (911) 027-64-57", "https://vk.com/pandagreengameclub",
-            "круглосуточно", 0, "60.012543, 30.387635", ""
+            "круглосуточно", 0, "60.012543, 30.387635", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             13, "Baza", "Торфяная дорога, 7В",
             "8 (812) 995-49-95", "https://gg-baza.ru/",
-            "круглосуточно", 0, "59.989360, 30.257774", ""
+            "круглосуточно", 0, "59.989360, 30.257774", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             14, "Colizeum Komenda", "г. Санкт-Петербург, проспект Испытателей, д. 39 , литера А, ТРЦ «Миллер», 1 этаж ",
             "8 (812) 318-40-42", "https://colizeumarena.com/club/colizeum_komenda",
-            "круглосуточно", 0, "60.007920, 30.264269", ""
+            "круглосуточно", 0, "60.007920, 30.264269", listOf(R.drawable.no_photo).toString()
         )
 
-        values = addComputerCLub(
+         addComputerCLub(
             15, "Colizeum Industrial", "г. Санкт-Петербург, Индустриальный проспект, 24, литера А, ТК Июнь",
             "8 (812) 389-34-78", "https://colizeumarena.com/club/colizeum_industrial",
-            "скоро открытие!", 0, "59.946202, 30.474448", ""
+            "скоро открытие!", 0, "59.946202, 30.474448", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             16, "WINSTRIKE Corner", "ТРК Мега Дыбенко, Мурманское шоссе 12 км, 1 Кудрово, Всеволожский",
             "8 (800) 444-13–22", "https://piter.winstrike.gg/",
-            "10:00-23:00", 0, "59.893716, 30.515164", ""
+            "10:00-23:00", 0, "59.893716, 30.515164", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             17, "Киберспортивный центр", "15-я линия В.О., 76 МО №8 \"Васильевский\", Василеостровский район, Санкт-Петербург",
             "8 (911) 762-96-31", "https://vk.com/club176866377",
-            "круглосуточно", 0, "59.935561, 30.273405", ""
+            "круглосуточно", 0, "59.935561, 30.273405", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             18, "PandaBanda", "Кораблестроителей, 30/1 МО №11 \"Остров Декабристов\", Василеостровский район, Санкт-Петербург",
             "8 (800) 302-56-66", "http://pandabanda.club/",
-            "круглосуточно", 0, "59.943395, 30.216029", ""
+            "круглосуточно", 0, "59.943395, 30.216029", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             19,
             "PandaBanda", "Гжатская, 22 к3 МО №19 \"Академическое\", Калининский район, Санкт-Петербург",
             "8 (800) 302-56-66", "http://pandabanda.club/",
-            "круглосуточно", 0, "60.004870, 30.385685", ""
+            "круглосуточно", 0, "60.004870, 30.385685", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             20,
             "Кибер World", "Санкт-Петербург, Байконурская 14 ТЦ «КОНТИНЕНТ», второй этаж",
             "8 (904) 511‒77‒11", "http://kiberworld.ru/",
-            "круглосуточно", 0, "60.002169, 30.272800", ""
+            "круглосуточно", 0, "60.002169, 30.272800", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             21,
             "Headshot", "Виленский переулок, 7 МО №80 \"Смольнинское\", Центральный район, Санкт-Петербург",
             "8 (911) 757-92-44", "https://www.headshot.spb.ru/",
-            "круглосуточно", 0, "59.940114, 30.365653", ""
+            "круглосуточно", 0, "59.940114, 30.365653", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             22, "Теккен Арена", "ТК ПИТЕР, Типанова, 21 лит А МО №45 \"Гагаринское\", Московский район, Санкт-Петербург",
             "8 (953) 164–99–04", "https://www.tekken.ru/reservation/spb",
-            "круглосуточно", 1, "59.853077, 30.340575", ""
+            "круглосуточно", 1, "59.853077, 30.340575", listOf(R.drawable.no_photo).toString()
         )
 
 
-        values = addComputerCLub(
+         addComputerCLub(
             23,
             "CyberPoint", "пл. Чернышевского, 6, Санкт-Петербург",
             "8 (812) 425-36-65", "https://cyberpointspb.ru/",
-            "круглосуточно", 1, "59.868478, 30.317395", ""
+            "круглосуточно", 1, "59.868478, 30.317395", listOf(R.drawable.no_photo).toString()
         )
 
     }

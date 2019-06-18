@@ -11,6 +11,7 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
+        supportActionBar!!.hide()
         button_start.setOnClickListener() {
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)

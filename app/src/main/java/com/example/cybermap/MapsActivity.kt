@@ -1,16 +1,12 @@
-package com.example.cybermap
+pacpackage com.example.cybermap
 
 
-
-
-import android.content.DialogInterface
+import android.content.ContentValues
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
-
-import android.widget.Toast
 
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -22,55 +18,14 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_maps.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-    val positiveMarkerClickListener = {dialog:DialogInterface, which: Int ->
-        Toast.makeText(applicationContext,
-            android.R.string.yes, Toast.LENGTH_SHORT).show()
-    }
-    val negativeMarkerClickListener = {dialog:DialogInterface, which: Int ->
-        Toast.makeText(applicationContext,
-            android.R.string.no, Toast.LENGTH_SHORT).show()
-    }
-    val neutralMarkerClickListener = {dialog:DialogInterface, which: Int ->
-        Toast.makeText(applicationContext,
-            "Maybe", Toast.LENGTH_SHORT).show()
-    }
-    fun basicAlert(view: View){
-
-        val builder = AlertDialog.Builder(this)
-
-        with(builder)
-        {
-            setTitle("Androidly Alert")
-            setMessage("We have a message")
-            setPositiveButton("OK", DialogInterface.OnClickListener(function = positiveMarkerClickListener))
-            setNegativeButton(android.R.string.no, negativeMarkerClickListener)
-            setNeutralButton("Maybe", neutralMarkerClickListener)
-            show()
-        }
-    }
-
-    private fun showDialog() {
-        val builder = AlertDialog.Builder(this)
-        with(builder) {
-            setTitle("List of Clubs")
-            setItems(computerClubs.coolToArray()) { dialog: DialogInterface, which:Int ->
-
-                //
-                Toast.makeText(applicationContext, "${computerClubs[which]}", Toast.LENGTH_SHORT).show()
-            }
-
-            setPositiveButton("OK", positiveMarkerClickListener)
-            show()
-        }
-    }
 
     private lateinit var mMap: GoogleMap
 
-    private lateinit var localDB: DBHandler
+    private lateinit var localDB : Data
 
     private var countOfClubs = 24
 
-    private lateinit var computerClubs: ArrayList<ComputerClubData>
+    private lateinit var computerClubs : ArrayList<ComputerClubData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +35,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        localDB = DBHandler(this)
+        localDB = Data (this)
         computerClubs = localDB.listComputerClubs("%")
         if (computerClubs.size != 24) {
             localDB.addAllComputerClubs()
@@ -88,8 +43,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             Log.d("111111", "In if")
         }
 
-        button1.setOnClickListener {
-            for (i in computerClubs.indices) {
+        button1.setOnClickListener{
+            for (i in computerClubs.indices){
                 val club = LatLng(computerClubs[i].coordinates[0], computerClubs[i].coordinates[1])
                 mMap.addMarker(MarkerOptions().position(club).title(computerClubs[i].name))
             }
@@ -111,20 +66,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         mMap.setOnMarkerClickListener {
-            showDialog()
+            val intent = Intent(this, Info::class.java)
+            startActivity(intent)
             return@setOnMarkerClickListener true
-        }
-            val stPetersburg = LatLng(59.93863, 30.31413)
-            mMap.addMarker(MarkerOptions().position(stPetersburg).title("Saint Petersburg"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stPetersburg, 12.0f))
-
-            //val gamer = LatLng(60.04015, 30.334697)
-            //mMap.addMarker(MarkerOptions().position(gamer).title("Computer club 'Gamer' "))
-            //mMap.moveCamera(CameraUpdateFactory.newLatLng(club))
 
         }
 
+        val stPetersburg = LatLng(59.93863, 30.31413)
+        mMap.addMarker(MarkerOptions().position(stPetersburg).title("Saint Petersburg"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stPetersburg, 12.0f))
+
+        //val gamer = LatLng(60.04015, 30.334697)
+        //mMap.addMarker(MarkerOptions().position(gamer).title("Computer club 'Gamer' "))
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(club))
 
     }
 
-fun ArrayList<ComputerClubData>.coolToArray() : Array<String> = Array<String>(this.size){x -> this[x].toString()}
+
+}

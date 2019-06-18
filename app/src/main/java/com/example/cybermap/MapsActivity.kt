@@ -1,11 +1,17 @@
 package com.example.cybermap
 
 
-import android.content.ContentValues
-import android.content.Intent
+
+
+import android.content.Context
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.View
+
+import android.widget.Toast
 
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -17,11 +23,57 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_maps.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+    val positiveMarkerClickListener = {dialog:DialogInterface, which: Int ->
+        Toast.makeText(applicationContext,
+            android.R.string.yes, Toast.LENGTH_SHORT).show()
+    }
+    val negativeMarkerClickListener = {dialog:DialogInterface, which: Int ->
+        Toast.makeText(applicationContext,
+            android.R.string.no, Toast.LENGTH_SHORT).show()
+    }
+    val neutralMarkerClickListener = {dialog:DialogInterface, which: Int ->
+        Toast.makeText(applicationContext,
+            "Maybe", Toast.LENGTH_SHORT).show()
+    }
+    fun basicAlert(view: View){
+
+        val builder = AlertDialog.Builder(this)
+
+        with(builder)
+        {
+            setTitle("Androidly Alert")
+            setMessage("We have a message")
+            setPositiveButton("OK", DialogInterface.OnClickListener(function = positiveMarkerClickListener))
+            setNegativeButton(android.R.string.no, negativeMarkerClickListener)
+            setNeutralButton("Maybe", neutralMarkerClickListener)
+            show()
+        }
+
+
+    }
+
+    fun withItems(view: View) {
+
+        val builder = AlertDialog.Builder(this)
+        with(builder)
+        {
+            val title = setTitle("List of Clubs")
+            setIte ms(computerClubs) {dialog: DialogInterface, which:Int ->
+                Toast.makeText(applicationContext, "${computerClubs[which]}", Toast.LENGTH_SHORT).show()
+            }
+
+            setPositiveButton("OK", positiveMarkerClickListener)
+            show()
+        }
+    }
 
     private lateinit var mMap: GoogleMap
 
-    private lateinit var localDB : Data
+    private lateinit var localDB: Data
 
+    private var countOfClubs = 24
+
+    private lateinit var computerClubs: ArrayList<ComputerClubData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,35 +84,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         localDB = Data(this)
+        computerClubs = localDB.listComputerClubs("%")
+        if (computerClubs.size != 24) {
+            localDB.addAllComputerClubs()
+            computerClubs = localDB.listComputerClubs("%")
+            Log.d("111111", "In if")
+        }
 
-        var tempId = 0
-        var tempName = "Gamer"
-        var tempAddress = "ул. Есенина, 9к2, Санкт-Петербург, 194354"
-        var tempPhone = "8 (812) 599-39-53"
-        var tempSite = ""
-        var tempHours = "круглосуточно"
-        var tempIsAvailable = 0
-        var tempCoordinates = "60.040150, 30.334697"
-
-        var values = ContentValues()
-        values.put(Data._id, tempId)
-        values.put(Data.name, tempName)
-        values.put(Data.address, tempAddress)
-        values.put(Data.phone, tempPhone)
-        values.put(Data.site, tempSite)
-        values.put(Data.hours, tempHours)
-        values.put(Data.isAvailableOnlineBooking, tempIsAvailable)
-        values.put(Data.coordinates, tempCoordinates)
-        localDB.addComputerClub(values)
-
-
-        var computerClubs = localDB.listComputerClubs("%")
-        button1.setOnClickListener{
-            for (i in computerClubs.indices){
+        button1.setOnClickListener {
+            for (i in computerClubs.indices) {
                 val club = LatLng(computerClubs[i].coordinates[0], computerClubs[i].coordinates[1])
                 mMap.addMarker(MarkerOptions().position(club).title(computerClubs[i].name))
             }
         }
+
     }
 
     /**
@@ -76,18 +113,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        mMap.setOnMarkerClickListener {
 
+            return@setOnMarkerClickListener true
+        }
+            val stPetersburg = LatLng(59.93863, 30.31413)
+            mMap.addMarker(MarkerOptions().position(stPetersburg).title("Saint Petersburg"))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stPetersburg, 12.0f))
 
+            //val gamer = LatLng(60.04015, 30.334697)
+            //mMap.addMarker(MarkerOptions().position(gamer).title("Computer club 'Gamer' "))
+            //mMap.moveCamera(CameraUpdateFactory.newLatLng(club))
 
-        val stPetersburg = LatLng(59.93863, 30.31413)
-        mMap.addMarker(MarkerOptions().position(stPetersburg).title("Saint Petersburg"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(stPetersburg))
-
-        //val gamer = LatLng(60.04015, 30.334697)
-        //mMap.addMarker(MarkerOptions().position(gamer).title("Computer club 'Gamer' "))
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(club))
-    }
-
+        }
 
 
     }

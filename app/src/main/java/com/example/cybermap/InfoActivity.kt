@@ -41,7 +41,7 @@ class InfoActivity : AppCompatActivity() {
         viewPager.adapter = imgAdapter
 
         val txt_name = findViewById<View>(R.id.info) as TextView
-        txt_name.text = "Name of the club: $name;" + "The phone number: $phone" + "Club's address: $address" +"Club's site: $site"+"Is online Booking available: ${isAvailableOnlineBooking.toString()}"+"Working hours: $hours"
+        txt_name.text = "Name of the club: $name \n" + "The phone number: $phone\n" + "Club's address: $address\n" +"Club's site: $site\n"+"Is online Booking available: ${isAvailableOnlineBooking.toString()}\n"+"Working hours: $hours\n"
 
     }
 

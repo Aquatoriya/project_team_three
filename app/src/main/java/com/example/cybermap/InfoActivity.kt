@@ -1,9 +1,11 @@
 package com.example.cybermap
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_info.*
 
 
@@ -37,6 +39,9 @@ class InfoActivity : AppCompatActivity() {
 
         val imgAdapter = ImageAdapter(this, images)
         viewPager.adapter = imgAdapter
+
+        //val txt_name = findViewById<View>(R.id.info) as TextView
+        //txt_name.text = "Name of the club: $name \n" + "The phone number: $phone\n" + "Club's address: $address\n" +"Club's site: $site\n"+"Is online Booking available: ${isAvailableOnlineBooking.toString()}\n"+"Working hours: $hours\n"
 
     }
 

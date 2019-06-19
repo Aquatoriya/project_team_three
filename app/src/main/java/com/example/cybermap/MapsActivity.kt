@@ -1,23 +1,26 @@
 package com.example.cybermap
 
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.support.v7.app.AppCompatActivity
+import android.location.Criteria
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.widget.Toast
-
-
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,32 +32,32 @@ import kotlinx.android.synthetic.main.activity_maps.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-
+    //Vars
     private lateinit var mMap: GoogleMap
-
     private lateinit var localDB : DBHandler
-
     private var countOfClubs = 24
-
     private var arrayOfMarkers = arrayListOf<Marker>()
-
     private lateinit var computerClubs : ArrayList<ComputerClubData>
-
     private var nameOfComputerClubs = listOf<String>()
-
-    //Permisions
-    private var FINE_LOCATOIN = android.Manifest.permission.ACCESS_FINE_LOCATION
-    private var COURSE_LOCATION = android.Manifest.permission.ACCESS_COARSE_LOCATION
+    private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var mapFragment: SupportMapFragment
+    private lateinit var location : Location
     private var mLocationPermissionGranted = false
-    private var LOCATION_PERMISSION_REQUEST_CODE = 1234
+
+//    //Permisions
+//    private var FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
+//    private var COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
+//    private var mLocationPermissionGranted = false
+//    private var LOCATION_PERMISSION_REQUEST_CODE = 1234
 
 
     fun Activity.hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(input_search.getWindowToken(), 0)
+        imm.hideSoftInputFromWindow(input_search.windowToken, 0)
     }
 
-    fun geoLocateToComputerClub() {
+
+    fun geolocateToComputerClub() {
         val searchString = input_search.text.toString()
 
         val club = arrayOfMarkers.find { it -> it.title == searchString }
@@ -76,11 +79,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         supportActionBar!!.hide()
 
-        getLocationPermission()
+        initMap()
 
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        placeMyLocationButton()
 
         localDB = DBHandler(this)
         localDB.sqlObj.delete("computerClubsTable", null, null)
@@ -97,8 +100,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
+    private fun placeMyLocationButton() {
+        val mapView = mapFragment.view!!
+        val locationButton =
+            (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))
+        val rlp = locationButton.layoutParams as (RelativeLayout.LayoutParams)
+        // position on right bottom
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
+        rlp.setMargins(0, 0, 15, 15);
+    }
+
+
     private fun initMap() {
-        val mapFragment = supportFragmentManager
+        mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
@@ -118,10 +133,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap = googleMap
 
-
         input_search.setOnEditorActionListener { text: TextView, actionId:Int, keyEvent: KeyEvent?? ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                geoLocateToComputerClub()
+                geolocateToComputerClub()
                 input_search.setText("")
                 this.hideKeyboard()
                 input_search.clearFocus()
@@ -136,6 +150,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             arrayOfMarkers.add(mMap.addMarker(MarkerOptions().position(club).title(computerClubs[i].name)))
 
         }
+
+        enableMyLocation()
 
         mMap.setOnMarkerClickListener {it ->
             val intent = Intent(this, InfoActivity::class.java)
@@ -169,44 +185,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-
-
-    fun getLocationPermission() {
-        val permissions = arrayOf<String>(FINE_LOCATOIN, COURSE_LOCATION)
-
-        if (ContextCompat.checkSelfPermission(this.applicationContext,
-                FINE_LOCATOIN) == PackageManager.PERMISSION_GRANTED) {
-            if (ContextCompat.checkSelfPermission(this.applicationContext,
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                mLocationPermissionGranted = true
-            }
-            else {
-                ActivityCompat.requestPermissions(this, permissions,
-                    LOCATION_PERMISSION_REQUEST_CODE)
+    private fun enableMyLocation(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED) {
+            mMap.isMyLocationEnabled = true;
+            Log.d("WHY PLS", mFusedLocationProviderClient.lastLocation.isComplete.toString())
+            if (mFusedLocationProviderClient.lastLocation.isSuccessful) {
+                location = mFusedLocationProviderClient.lastLocation.result!!
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.longitude, location.latitude), 12.0f))
             }
         }
         else {
-            ActivityCompat.requestPermissions(this, permissions,
-                LOCATION_PERMISSION_REQUEST_CODE)
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        mLocationPermissionGranted = false
-
-        when(requestCode) {
-            LOCATION_PERMISSION_REQUEST_CODE -> {
-                if (grantResults.size > 0) {
-                   for (i in 0 until grantResults.size) {
-                       if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                           mLocationPermissionGranted = false
-                           return
-                       }
-                   }
-                    mLocationPermissionGranted = true
-                    initMap()
-                }
-            }
+            Toast.makeText(this, "Do not have a permission to get current location", Toast.LENGTH_SHORT).show()
         }
     }
 }

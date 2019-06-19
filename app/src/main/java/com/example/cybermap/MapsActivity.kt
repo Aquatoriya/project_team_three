@@ -6,10 +6,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Criteria
 import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -29,6 +29,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_maps.*
+import kotlinx.android.synthetic.main.activity_start.view.*
+import kotlinx.android.synthetic.main.custom_list_item.view.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -83,7 +85,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-        placeMyLocationButton()
 
         localDB = DBHandler(this)
         localDB.sqlObj.delete("computerClubsTable", null, null)
@@ -95,8 +96,48 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             nameOfComputerClubs = nameOfComputerClubs + x.name
         }
 
+        ic_clear.setOnClickListener {
+            input_search.setText("")
+        }
+
+        ic_clear.visibility = View.GONE
+
         val adapter = ArrayAdapter<String>(this, R.layout.custom_list_item, nameOfComputerClubs)
         input_search.setAdapter(adapter)
+
+        input_search.setOnEditorActionListener { text: TextView, actionId:Int, keyEvent: KeyEvent?? ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                geolocateToComputerClub()
+                input_search.setText("")
+                ic_clear.visibility = View.GONE
+                this.hideKeyboard()
+                input_search.clearFocus()
+            }
+            else {
+            }
+            return@setOnEditorActionListener true
+        }
+
+
+        input_search.addTextChangedListener (object: TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (input_search.text.toString() != "")  {
+                    ic_clear.visibility = View.VISIBLE
+                    ic_clear.isEnabled = true
+                }
+                else {
+                    ic_clear.visibility = View.GONE
+                }
+            }
+        })
+
+        input_search.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+            Toast.makeText(this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show()
+        }
 
     }
 
@@ -133,17 +174,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap = googleMap
 
-        input_search.setOnEditorActionListener { text: TextView, actionId:Int, keyEvent: KeyEvent?? ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                geolocateToComputerClub()
-                input_search.setText("")
-                this.hideKeyboard()
-                input_search.clearFocus()
-            }
-            else {
-            }
-            return@setOnEditorActionListener true
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED) {
+            mMap.isMyLocationEnabled = true
         }
+
+        placeMyLocationButton()
+
 
         for (i in computerClubs.indices){
             val club = LatLng(computerClubs[i].coordinates[0], computerClubs[i].coordinates[1])
@@ -151,7 +188,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         }
 
-        enableMyLocation()
 
         mMap.setOnMarkerClickListener {it ->
             val intent = Intent(this, InfoActivity::class.java)
@@ -185,18 +221,4 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    private fun enableMyLocation(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
-            mMap.isMyLocationEnabled = true;
-            Log.d("WHY PLS", mFusedLocationProviderClient.lastLocation.isComplete.toString())
-            if (mFusedLocationProviderClient.lastLocation.isSuccessful) {
-                location = mFusedLocationProviderClient.lastLocation.result!!
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.longitude, location.latitude), 12.0f))
-            }
-        }
-        else {
-            Toast.makeText(this, "Do not have a permission to get current location", Toast.LENGTH_SHORT).show()
-        }
-    }
 }

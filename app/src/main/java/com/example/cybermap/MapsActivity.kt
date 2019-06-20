@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_info.view.*
 import kotlinx.android.synthetic.main.activity_maps.*
 import kotlinx.android.synthetic.main.activity_start.view.*
 import kotlinx.android.synthetic.main.custom_list_item.view.*
@@ -59,18 +61,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-    fun geolocateToComputerClub() {
-        val searchString = input_search.text.toString()
+    fun geolocateToComputerClub(s: String) {
 
-        val club = arrayOfMarkers.find { it -> it.title == searchString }
+        val club = arrayOfMarkers.find { it.title.toString().toLowerCase() == s }
 
         if (club != null) {
             Log.d("geoLocator found: ", club.title)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(club.position, 12.0f))
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(club.position, 15f))
         }
         else {
             Log.d("geoLocator didnt found", "NOO")
-            Toast.makeText(this, "Did not found a computer club", Toast.LENGTH_SHORT).show()
+            if (s != "No such computer club")
+                Toast.makeText(this, "Did not found a computer club", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -102,12 +104,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         ic_clear.visibility = View.GONE
 
-        val adapter = ArrayAdapter<String>(this, R.layout.custom_list_item, nameOfComputerClubs)
+        val adapter = AutoCompleteAdapter(this, R.layout.custom_list_item, ArrayList(nameOfComputerClubs))
         input_search.setAdapter(adapter)
+        Log.d("ADDAPTER", adapter.isEmpty.toString())
 
-        input_search.setOnEditorActionListener { text: TextView, actionId:Int, keyEvent: KeyEvent?? ->
+
+        //Pressing a enter
+        input_search.setOnEditorActionListener { text: TextView, actionId:Int, keyEvent: KeyEvent? ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                geolocateToComputerClub()
+                geolocateToComputerClub(input_search.text.toString().toLowerCase())
                 input_search.setText("")
                 ic_clear.visibility = View.GONE
                 this.hideKeyboard()
@@ -120,9 +125,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         input_search.addTextChangedListener (object: TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
+            override fun afterTextChanged(s: Editable) {
+            }
 
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (input_search.text.toString() != "")  {
@@ -132,11 +139,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 else {
                     ic_clear.visibility = View.GONE
                 }
+
             }
         })
 
         input_search.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
-            Toast.makeText(this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show()
+            if (adapterView.getItemAtPosition(i).toString() != "No such computer club")
+                Toast.makeText(this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show()
+            geolocateToComputerClub(adapterView.getItemAtPosition(i).toString().toLowerCase())
+            this.hideKeyboard()
+            input_search.setText("")
         }
 
     }
@@ -188,7 +200,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         }
 
-
+        //Tranfering data to new activity
         mMap.setOnMarkerClickListener {it ->
             val intent = Intent(this, InfoActivity::class.java)
             val ind = arrayOfMarkers.indexOf(it)
@@ -207,17 +219,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         }
 
-
-
-
+        //Moving camera to a current location
+        mFusedLocationProviderClient.lastLocation.addOnSuccessListener(this) { location ->
+            // Got last known location. In some rare situations this can be null.
+            // 3
+            if (location != null) {
+                val currentLatLng = LatLng(location.latitude, location.longitude)
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+            }
+        }
         val stPetersburg = LatLng(59.93863, 30.31413)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stPetersburg, 12.0f))
-
-
-        //val gamer = LatLng(60.04015, 30.334697)
-        //mMap.addMarker(MarkerOptions().position(gamer).title("Computer club 'Gamer' "))
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(club))
-
     }
+
 
 }

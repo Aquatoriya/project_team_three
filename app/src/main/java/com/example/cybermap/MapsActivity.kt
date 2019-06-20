@@ -63,11 +63,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun geolocateToComputerClub(s: String) {
 
-        val club = arrayOfMarkers.find { it -> it.title == s }
+        val club = arrayOfMarkers.find { it.title.toString().toLowerCase() == s }
 
         if (club != null) {
             Log.d("geoLocator found: ", club.title)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(club.position, 12.0f))
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(club.position, 15f))
         }
         else {
             Log.d("geoLocator didnt found", "NOO")
@@ -112,7 +112,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         //Pressing a enter
         input_search.setOnEditorActionListener { text: TextView, actionId:Int, keyEvent: KeyEvent? ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                geolocateToComputerClub(input_search.text.toString())
+                geolocateToComputerClub(input_search.text.toString().toLowerCase())
                 input_search.setText("")
                 ic_clear.visibility = View.GONE
                 this.hideKeyboard()
@@ -146,7 +146,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         input_search.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
             if (adapterView.getItemAtPosition(i).toString() != "No such computer club")
                 Toast.makeText(this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show()
-            geolocateToComputerClub(adapterView.getItemAtPosition(i).toString())
+            geolocateToComputerClub(adapterView.getItemAtPosition(i).toString().toLowerCase())
             this.hideKeyboard()
             input_search.setText("")
         }

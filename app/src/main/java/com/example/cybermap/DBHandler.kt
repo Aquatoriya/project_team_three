@@ -143,55 +143,56 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
          addComputerCLub(
             9, "Restart", "Большая Зеленина ул., 1, Санкт-Петербург, 197110",
             "8 (812) 235-17-79", "https://vk.com/ccrestart",
-            "круглосуточно", 0, "59.959588, 30.295863", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "59.959588, 30.295863", listOf(R.drawable.img_9_0, R.drawable.img_9_1).toString()
         )
 
 
          addComputerCLub(
             10, "Вега", "Промышленная ул., 6, Санкт-Петербург, 198095",
             "8 (921) 941-34-18", "https://vega98.ru/",
-            "круглосуточно", 0, "59.898774, 30.272929", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "59.898774, 30.272929", listOf(R.drawable.img_10_0, R.drawable.img_10_1).toString()
         )
 
 
          addComputerCLub(
             11, "Ladoga", "2-я Красноармейская ул., 2, Санкт-Петербург, 190005",
             "8 (812) 316-37-50", "https://vk.com/ladogaclubspb",
-            "круглосуточно", 0, "59.915183, 30.317431", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "59.915183, 30.317431", listOf(R.drawable.img_11_0, R.drawable.img_11_1).toString()
         )
 
 
          addComputerCLub(
             12, "Pandagreen", "Гжатская ул., 22 корпус 3, Санкт-Петербург, 195220",
             "8 (911) 027-64-57", "https://vk.com/pandagreengameclub",
-            "круглосуточно", 0, "60.012543, 30.387635", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "60.012543, 30.387635", listOf(R.drawable.img_12_0, R.drawable.img_12_1,
+                 R.drawable.img_12_2, R.drawable.img_12_3).toString()
         )
 
 
          addComputerCLub(
             13, "Baza", "Торфяная дорога, 7В",
             "8 (812) 995-49-95", "https://gg-baza.ru/",
-            "круглосуточно", 0, "59.989360, 30.257774", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "59.989360, 30.257774", listOf(R.drawable.img_13_0).toString()
         )
 
 
          addComputerCLub(
             14, "Colizeum Komenda", "г. Санкт-Петербург, проспект Испытателей, д. 39 , литера А, ТРЦ «Миллер», 1 этаж ",
             "8 (812) 318-40-42", "https://colizeumarena.com/club/colizeum_komenda",
-            "круглосуточно", 0, "60.007920, 30.264269", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "60.007920, 30.264269", listOf(R.drawable.img_14_0).toString()
         )
 
          addComputerCLub(
             15, "Colizeum Industrial", "г. Санкт-Петербург, Индустриальный проспект, 24, литера А, ТК Июнь",
             "8 (812) 389-34-78", "https://colizeumarena.com/club/colizeum_industrial",
-            "скоро открытие!", 0, "59.946202, 30.474448", listOf(R.drawable.no_photo).toString()
+            "скоро открытие!", 0, "59.946202, 30.474448", listOf(R.drawable.img_15_0).toString()
         )
 
 
          addComputerCLub(
             16, "WINSTRIKE Corner", "ТРК Мега Дыбенко, Мурманское шоссе 12 км, 1 Кудрово, Всеволожский",
             "8 (800) 444-13–22", "https://piter.winstrike.gg/",
-            "10:00-23:00", 0, "59.893716, 30.515164", listOf(R.drawable.no_photo).toString()
+            "10:00-23:00", 0, "59.893716, 30.515164", listOf(R.drawable.img_16_0, R.drawable.img_16_1).toString()
         )
 
 
@@ -205,15 +206,15 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
          addComputerCLub(
             18, "PandaBanda", "Кораблестроителей, 30/1 МО №11 \"Остров Декабристов\", Василеостровский район, Санкт-Петербург",
             "8 (800) 302-56-66", "http://pandabanda.club/",
-            "круглосуточно", 0, "59.943395, 30.216029", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "59.943395, 30.216029", listOf(R.drawable.img_18_0, R.drawable.img_18_1).toString()
         )
 
 
          addComputerCLub(
             19,
-            "PandaBanda", "Гжатская, 22 к3 МО №19 \"Академическое\", Калининский район, Санкт-Петербург",
+            "PandaBanda", "Большой пр. ВО 18 (метро Василеостровская)",
             "8 (800) 302-56-66", "http://pandabanda.club/",
-            "круглосуточно", 0, "60.004870, 30.385685", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "60.004870, 30.385685", listOf(R.drawable.img_19_0, R.drawable.img_19_1).toString()
         )
 
 
@@ -229,7 +230,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
             21,
             "Headshot", "Виленский переулок, 7 МО №80 \"Смольнинское\", Центральный район, Санкт-Петербург",
             "8 (911) 757-92-44", "https://www.headshot.spb.ru/",
-            "круглосуточно", 0, "59.940114, 30.365653", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "59.940114, 30.365653", listOf(R.drawable.img_21_0, R.drawable.img_21_1).toString()
         )
 
 

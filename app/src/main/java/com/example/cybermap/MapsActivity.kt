@@ -211,7 +211,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         val stPetersburg = LatLng(59.93863, 30.31413)
-        mMap.addMarker(MarkerOptions().position(stPetersburg).title("Saint Petersburg"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stPetersburg, 12.0f))
 
 

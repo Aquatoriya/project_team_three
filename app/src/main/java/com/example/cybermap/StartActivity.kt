@@ -4,9 +4,14 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+
+import android.widget.LinearLayout
+
 import kotlinx.android.synthetic.main.activity_start.*
 
 class StartActivity : AppCompatActivity() {
@@ -16,6 +21,12 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
+
+        val imageView = findViewById<ImageView>(R.id.image)
+        val imgResId = R.drawable.malesuada_1_original
+        var resId = imgResId
+        imageView.setImageResource(imgResId)
+
 
         getPermissions()
 

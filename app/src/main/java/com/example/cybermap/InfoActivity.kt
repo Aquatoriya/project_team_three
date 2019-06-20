@@ -1,21 +1,22 @@
 package com.example.cybermap
 
+
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_info.*
+import android.graphics.Typeface
+import android.text.Html
 
 
 class InfoActivity : AppCompatActivity() {
 
-    private lateinit var name: String
-    private lateinit var address: String
-    private lateinit var phone: String
-    private lateinit var site: String
-    private lateinit var hours: String
-    private var isAvailableOnlineBooking = 0
+    private lateinit var nameData: String
+    private lateinit var addressData: String
+    private lateinit var phoneData: String
+    private lateinit var siteData: String
+    private lateinit var hoursData: String
+    private var isAvailableOnlineBookingData = 0
     private lateinit var coordinates: String
     private lateinit var images : IntArray
 
@@ -23,24 +24,36 @@ class InfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
 
-        name = intent.getStringExtra("name")
-        address = intent.getStringExtra("address")
-        phone = intent.getStringExtra("phone")
-        site = intent.getStringExtra("site")
-        hours = intent.getStringExtra("hours")
-        isAvailableOnlineBooking = intent.getIntExtra("isAvailableOnlineBooking", 0)
+        nameData = intent.getStringExtra("name")
+        addressData = intent.getStringExtra("address")
+        phoneData = intent.getStringExtra("phone")
+        siteData = intent.getStringExtra("site")
+        hoursData = intent.getStringExtra("hours")
+        isAvailableOnlineBookingData = intent.getIntExtra("isAvailableOnlineBooking", 0)
         //coordinates = intent.getStringExtra("coordinates")
         images = intent.getIntArrayExtra("images")
 
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setTitle(name)
+        supportActionBar!!.setTitle(nameData)
 
         val imgAdapter = ImageAdapter(this, images)
         viewPager.adapter = imgAdapter
 
-        val txt_name = findViewById<View>(R.id.info) as TextView
-        txt_name.text = "Name of the club: $name \n" + "The phone number: $phone\n" + "Club's address: $address\n" +"Club's site: $site\n"+"Is online Booking available: ${isAvailableOnlineBooking.toString()}\n"+"Working hours: $hours\n"
+        val typeface = Typeface.createFromAsset(assets, "font/Roboto-ThinItalic.ttf")
+        name.text = Html.fromHtml("<b>Name of the club: </b> $nameData")
+        phone.text = Html.fromHtml("<b>The phoneData number: </b> $phoneData")
+        address.text = Html.fromHtml("<b>Club's addressData: </b> $addressData")
+        site.text = Html.fromHtml("<b>Club's siteData: </b> $siteData")
+        hours.text = Html.fromHtml("<b>Working hoursData: </b> $hoursData")
+        booking.text = Html.fromHtml("<b>Is online Booking available: </b> $isAvailableOnlineBookingData")
+
+        name.typeface = typeface
+        phone.typeface = typeface
+        address.typeface = typeface
+        site.typeface = typeface
+        hours.typeface = typeface
+        booking.typeface = typeface
 
     }
 

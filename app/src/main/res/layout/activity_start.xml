@@ -6,27 +6,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        tools:context=".StartActivity">
-    <RelativeLayout
+        tools:context=".StartActivity"
+        android:background="#000000">
+    <LinearLayout
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-    >
-        <TextView
-                android:text="CyberMap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView"
-                android:textSize="36sp"
-        />
-        <Button
-                android:text="Let's get started"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/button_start"
-                android:layout_below="@id/textView"
-                android:layout_alignLeft="@id/textView"
-                android:layout_alignRight="@id/textView"
-        />
+            android:layout_width="286dp"
+            android:layout_height="451dp"
+            android:orientation="vertical">
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="273dp"
+                android:id="@+id/image"/>
+        <ImageButton
 
-    </RelativeLayout>
+                android:layout_width="match_parent"
+                android:layout_height="184px"
+                android:id="@+id/button_start"
+                android:src="@drawable/bit"/>
+
+
+    </LinearLayout>
 
 </RelativeLayout>

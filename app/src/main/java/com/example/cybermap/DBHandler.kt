@@ -81,7 +81,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         addComputerCLub(
             0, "Gamer", "ул. Есенина, 9к2, Санкт-Петербург, 194354",
             "8 (812) 599-39-53", "",
-            "круглосуточно", 0, "60.040150, 30.334697", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "60.040150, 30.334697", listOf(R.drawable.img_0_0).toString()
         )
 
 
@@ -108,7 +108,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         addComputerCLub(
             4, "Стелс", "пр. Большевиков, 3, корп. 1, литера \"Д\", Санкт-Петербург, 193231",
             "8 (812) 588-40-61", "http://stels-klub.ru/",
-            "круглосуточно", 0, "59.917966, 30.470055", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "59.917966, 30.470055", listOf(R.drawable.img_4_0).toString()
         )
 
 
@@ -199,7 +199,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
          addComputerCLub(
             17, "Киберспортивный центр", "15-я линия В.О., 76 МО №8 \"Васильевский\", Василеостровский район, Санкт-Петербург",
             "8 (911) 762-96-31", "https://vk.com/club176866377",
-            "круглосуточно", 0, "59.935561, 30.273405", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "59.935561, 30.273405", listOf(R.drawable.img_17_0).toString()
         )
 
 
@@ -222,7 +222,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
             20,
             "Кибер World", "Санкт-Петербург, Байконурская 14 ТЦ «КОНТИНЕНТ», второй этаж",
             "8 (904) 511‒77‒11", "http://kiberworld.ru/",
-            "круглосуточно", 0, "60.002169, 30.272800", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 0, "60.002169, 30.272800", listOf(R.drawable.img_20_0).toString()
         )
 
 
@@ -237,7 +237,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
          addComputerCLub(
             22, "Теккен Арена", "ТК ПИТЕР, Типанова, 21 лит А МО №45 \"Гагаринское\", Московский район, Санкт-Петербург",
             "8 (953) 164–99–04", "https://www.tekken.ru/reservation/spb",
-            "круглосуточно", 1, "59.853077, 30.340575", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 1, "59.853077, 30.340575", listOf(R.drawable.img_22_0, R.drawable.img_22_1).toString()
         )
 
 
@@ -245,7 +245,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
             23,
             "CyberPoint", "пл. Чернышевского, 6, Санкт-Петербург",
             "8 (812) 425-36-65", "https://cyberpointspb.ru/",
-            "круглосуточно", 1, "59.868478, 30.317395", listOf(R.drawable.no_photo).toString()
+            "круглосуточно", 1, "59.868478, 30.317395", listOf(R.drawable.img_23_0, R.drawable.img_23_1).toString()
         )
 
     }

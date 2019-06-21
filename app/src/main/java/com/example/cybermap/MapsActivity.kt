@@ -97,6 +97,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         for (x in computerClubs) {
             nameOfComputerClubs = nameOfComputerClubs + x.name
         }
+        Log.d("LIST", nameOfComputerClubs.toString())
 
         ic_clear.setOnClickListener {
             input_search.setText("")

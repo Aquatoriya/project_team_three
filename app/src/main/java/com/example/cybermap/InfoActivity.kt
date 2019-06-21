@@ -39,6 +39,8 @@ class InfoActivity : AppCompatActivity() {
 
         val imgAdapter = ImageAdapter(this, images)
         viewPager.adapter = imgAdapter
+        //For better perfomance
+        viewPager.offscreenPageLimit = images.size - 1
 
         val typeface = Typeface.createFromAsset(assets, "font/Roboto-ThinItalic.ttf")
         name.text = Html.fromHtml("<b>Name of the club: </b> $nameData")

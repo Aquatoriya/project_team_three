@@ -1,7 +1,5 @@
 package com.example.cybermap
 
-
-
 import android.R
 import android.app.Activity
 import android.content.Context

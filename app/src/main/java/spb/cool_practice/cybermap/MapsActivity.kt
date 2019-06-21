@@ -1,4 +1,4 @@
-package com.example.cybermap
+package spb.cool_practice.cybermap
 
 
 import android.Manifest
@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,8 +17,8 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import spb.cool_practice.cybermap.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -29,10 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.activity_info.view.*
 import kotlinx.android.synthetic.main.activity_maps.*
-import kotlinx.android.synthetic.main.activity_start.view.*
-import kotlinx.android.synthetic.main.custom_list_item.view.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -105,7 +101,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         ic_clear.visibility = View.GONE
 
-        val adapter = AutoCompleteAdapter(this, R.layout.custom_list_item, ArrayList(nameOfComputerClubs))
+        val adapter = AutoCompleteAdapter(
+            this,
+            R.layout.custom_list_item,
+            ArrayList(nameOfComputerClubs)
+        )
         input_search.setAdapter(adapter)
         Log.d("ADDAPTER", adapter.isEmpty.toString())
 

@@ -1,4 +1,4 @@
-package com.example.cybermap
+package spb.cool_practice.cybermap
 
 import android.content.Context
 import android.view.View

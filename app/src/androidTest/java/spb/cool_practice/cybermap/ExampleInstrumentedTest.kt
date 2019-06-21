@@ -1,4 +1,4 @@
-package com.example.cybermap
+package spb.cool_practice.cybermap
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.example.cybermap", appContext.packageName)
+        assertEquals("spb.cool_practice.cybermap", appContext.packageName)
     }
 }

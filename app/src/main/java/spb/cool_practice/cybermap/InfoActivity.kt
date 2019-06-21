@@ -1,4 +1,4 @@
-package com.example.cybermap
+package spb.cool_practice.cybermap
 
 
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_info.*
 import android.graphics.Typeface
 import android.text.Html
+import spb.cool_practice.cybermap.R
 
 
 class InfoActivity : AppCompatActivity() {
@@ -44,10 +45,10 @@ class InfoActivity : AppCompatActivity() {
 
         val typeface = Typeface.createFromAsset(assets, "font/Roboto-ThinItalic.ttf")
         name.text = Html.fromHtml("<b>Name of the club: </b> $nameData")
-        phone.text = Html.fromHtml("<b>The phoneData number: </b> $phoneData")
-        address.text = Html.fromHtml("<b>Club's addressData: </b> $addressData")
-        site.text = Html.fromHtml("<b>Club's siteData: </b> $siteData")
-        hours.text = Html.fromHtml("<b>Working hoursData: </b> $hoursData")
+        phone.text = Html.fromHtml("<b>The phone number: </b> $phoneData")
+        address.text = Html.fromHtml("<b>Club's address: </b> $addressData")
+        site.text = Html.fromHtml("<b>Club's site: </b> $siteData")
+        hours.text = Html.fromHtml("<b>Working hours: </b> $hoursData")
         booking.text = Html.fromHtml("<b>Is online Booking available: </b> $isAvailableOnlineBookingData")
 
         name.typeface = typeface

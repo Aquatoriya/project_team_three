@@ -1,16 +1,15 @@
-package com.example.cybermap
+package spb.cool_practice.cybermap
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-import android.widget.LinearLayout
+import spb.cool_practice.cybermap.R
 
 import kotlinx.android.synthetic.main.activity_start.*
 

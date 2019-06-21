@@ -226,7 +226,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context,
             12, "Pandagreen", "Гжатская ул., 22 корпус 3, Санкт-Петербург, 195220",
             "8 (911) 027-64-57", "https://vk.com/pandagreengameclub",
             "круглосуточно", 0, "60.012543, 30.387635", listOf(
-                 R.drawable.img_12_0, R.drawable.img_12_1,
+                 R.drawable.img_12_01, R.drawable.img_12_1,
                  R.drawable.img_12_2, R.drawable.img_12_3
              ).toString()
         )
@@ -303,8 +303,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context,
             "Headshot", "Виленский переулок, 7 МО №80 \"Смольнинское\", Центральный район, Санкт-Петербург",
             "8 (911) 757-92-44", "https://www.headshot.spb.ru/",
             "круглосуточно", 0, "59.940114, 30.365653", listOf(
-                 R.drawable.img_21_0,
-                 R.drawable.img_21_1
+                 R.drawable.img_20_0
              ).toString()
         )
 

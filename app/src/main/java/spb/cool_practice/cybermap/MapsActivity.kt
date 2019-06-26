@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
 import android.text.Editable
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_maps.*
@@ -43,6 +45,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var location : Location
     private var mLocationPermissionGranted = false
+    private var howManyTimePressed = 0
+    private var map_style = 1
 
 //    //Permisions
 //    private var FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
@@ -80,6 +84,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         supportActionBar!!.hide()
 
         initMap()
+
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -152,6 +157,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             input_search.setText("")
         }
 
+        button_style_map.setOnClickListener {
+            val intent = Intent(this, StyleMapActivity::class.java)
+            intent.putExtra("map_style", map_style)
+            startActivityForResult(intent, 1)
+        }
+
     }
 
     private fun placeMyLocationButton() {
@@ -187,6 +198,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap = googleMap
 
+
+        Log.d("MAP_STYLE", intent.getIntExtra("map_style", -1).toString())
+        //mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json))
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED) {
             mMap.isMyLocationEnabled = true
@@ -212,7 +227,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             intent.putExtra("site", computerClubs[ind].site)
             intent.putExtra("hours", computerClubs[ind].hours)
             intent.putExtra("isAvailableOnlineBooking", computerClubs[ind].isAvailableOnlineBooking)
-            //intent.putExtra("coordinates", computerClubs[ind].coordinates)
+            intent.putExtra("coordinates", computerClubs[ind].coordinates.toDoubleArray())
             intent.putExtra("images", computerClubs[ind].images.toIntArray())
 
             startActivity(intent)
@@ -222,8 +237,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         //Moving camera to a current location
         mFusedLocationProviderClient.lastLocation.addOnSuccessListener(this) { location ->
-            // Got last known location. In some rare situations this can be null.
-            // 3
             if (location != null) {
                 val currentLatLng = LatLng(location.latitude, location.longitude)
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
@@ -233,5 +246,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stPetersburg, 12.0f))
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        map_style = data!!.getIntExtra("map_style", -1)
+        when(map_style) {
+            -1, 1 -> mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_standard_theme))
+            2 -> mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_dark_theme))
+            3 -> mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_retro_theme))
+            4 -> mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_night_theme))
+        }
+    }
 
 }
+

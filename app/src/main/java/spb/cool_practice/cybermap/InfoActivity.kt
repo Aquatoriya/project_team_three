@@ -8,6 +8,8 @@ import kotlinx.android.synthetic.main.activity_info.*
 import android.graphics.Typeface
 import android.text.Html
 import spb.cool_practice.cybermap.R
+import android.content.Intent
+import android.net.Uri
 
 
 class InfoActivity : AppCompatActivity() {
@@ -18,7 +20,7 @@ class InfoActivity : AppCompatActivity() {
     private lateinit var siteData: String
     private lateinit var hoursData: String
     private var isAvailableOnlineBookingData = 0
-    private lateinit var coordinates: String
+    private lateinit var coordinates : DoubleArray
     private lateinit var images : IntArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +33,17 @@ class InfoActivity : AppCompatActivity() {
         siteData = intent.getStringExtra("site")
         hoursData = intent.getStringExtra("hours")
         isAvailableOnlineBookingData = intent.getIntExtra("isAvailableOnlineBooking", 0)
-        //coordinates = intent.getStringExtra("coordinates")
+        coordinates = intent.getDoubleArrayExtra("coordinates")
         images = intent.getIntArrayExtra("images")
+
+        button_route.setOnClickListener {
+            val uri =
+                "http://maps.google.com/maps?daddr=${coordinates[0]},${coordinates[1]} (Where the party is at)"
+            val intent_google_maps = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+            intent_google_maps.setPackage("com.google.android.apps.maps")
+            startActivity(intent_google_maps)
+
+        }
 
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -50,6 +61,7 @@ class InfoActivity : AppCompatActivity() {
         site.text = Html.fromHtml("<b>Club's site: </b> $siteData")
         hours.text = Html.fromHtml("<b>Working hours: </b> $hoursData")
         booking.text = Html.fromHtml("<b>Is online Booking available: </b> $isAvailableOnlineBookingData")
+        button_route.text = Html.fromHtml("<b>BUILD A ROUTE </b>")
 
         name.typeface = typeface
         phone.typeface = typeface
@@ -57,6 +69,7 @@ class InfoActivity : AppCompatActivity() {
         site.typeface = typeface
         hours.typeface = typeface
         booking.typeface = typeface
+        button_route.typeface = typeface
 
     }
 

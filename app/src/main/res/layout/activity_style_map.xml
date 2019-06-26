@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".StyleMapActivity">
+    <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_group"
+            android:layout_marginTop="10dp"
+    >
+
+            <RadioButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Standard theme"
+                    android:id="@+id/radio_button_standard_theme"
+                    android:layout_marginBottom="10dp"
+            />
+            <RadioButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Dark theme"
+                    android:id="@+id/radio_button_dark_theme"
+                    android:layout_marginBottom="10dp"
+            />
+            <RadioButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Retro theme"
+                    android:id="@+id/radio_button_retro_theme"
+                    android:layout_marginBottom="10dp"
+            />
+            <RadioButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Night theme"
+                    android:id="@+id/radio_button_night_theme"
+                    android:layout_marginBottom="10dp"
+            />
+    </RadioGroup>
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_save"
+            android:layout_alignStart="@id/radio_group"
+            android:layout_below="@+id/radio_group"
+            android:layout_marginTop="10dp"
+            android:text="Save"
+    />
+</RelativeLayout>

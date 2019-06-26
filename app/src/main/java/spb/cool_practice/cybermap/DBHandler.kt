@@ -327,7 +327,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context,
                  R.drawable.img_23_1
              ).toString()
         )
-        addComputerClub(
+        addComputerCLub(
             24, "Health Point Arena", "Большая Тульская ул., 19 • этаж 4", "+7 (499) 938-60-13",
             "https://vk.com/arenahp", "круглосуточно", 0, "55.7067656, 37.62187770000003", listOf(
                 R.drawable.img_24_0,

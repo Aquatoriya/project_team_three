@@ -69,4 +69,11 @@ class StyleMapActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        val returnIntent = Intent()
+        returnIntent.putExtra("map_style", map_style)
+        setResult(Activity.RESULT_OK, returnIntent)
+        this.finish()
+    }
+
 }
